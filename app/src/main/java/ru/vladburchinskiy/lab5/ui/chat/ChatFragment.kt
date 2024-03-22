@@ -1,4 +1,4 @@
-package ru.vladburchinskiy.lab5.ui.home
+package ru.vladburchinskiy.lab5.ui.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.vladburchinskiy.lab5.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class ChatFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -22,14 +22,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val chatViewModel =
+            ViewModelProvider(this).get(ChatViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        chatViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

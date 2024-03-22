@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ru.vladburchinskiy.lab5.ui.home.HomeFragment"
+        android:name="ru.vladburchinskiy.lab5.ui.chat.ChatFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ru.vladburchinskiy.lab5.ui.dashboard.DashboardFragment"
+        android:name="ru.vladburchinskiy.lab5.ui.quiz.QuizFragment"
         android:label="@string/title_quiz"
         tools:layout="@layout/fragment_dashboard" />
 
