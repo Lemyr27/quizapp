@@ -12,4 +12,5 @@
     <color name="yellow">#F1D147</color>
     <color name="inactive_gray">#888888</color>
     <color name="light_gray">#898989</color>
+    <color name="bad_yellow">#9C8835</color>
 </resources>
