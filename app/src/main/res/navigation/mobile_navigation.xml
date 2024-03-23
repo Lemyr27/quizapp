@@ -9,12 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="ru.vladburchinskiy.lab5.ui.chat.ChatFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_chat" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="ru.vladburchinskiy.lab5.ui.quiz.QuizFragment"
         android:label="@string/title_quiz"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_quiz" />
 
 </navigation>

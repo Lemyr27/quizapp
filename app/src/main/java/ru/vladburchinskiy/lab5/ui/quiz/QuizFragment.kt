@@ -1,5 +1,6 @@
 package ru.vladburchinskiy.lab5.ui.quiz
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ru.vladburchinskiy.lab5.databinding.FragmentDashboardBinding
+import ru.vladburchinskiy.lab5.databinding.FragmentQuizBinding
 
 class QuizFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentQuizBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,7 +26,7 @@ class QuizFragment : Fragment() {
         val quizViewModel =
             ViewModelProvider(this).get(QuizViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentQuizBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard
