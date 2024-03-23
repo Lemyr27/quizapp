@@ -10,6 +10,8 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -18,6 +20,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import ru.vladburchinskiy.lab5.databinding.AddActivityBinding
 
 class AddActivity : AppCompatActivity() {
@@ -49,7 +52,6 @@ class AddActivity : AppCompatActivity() {
             setBackgroundDrawable(ColorDrawable(Color.parseColor("#222222")))
         }
 
-
         binding.nameTextField.viewTreeObserver.addOnGlobalLayoutListener {
             val r = Rect()
             binding.nameTextField.getWindowVisibleDisplayFrame(r)
@@ -61,6 +63,36 @@ class AddActivity : AppCompatActivity() {
                 binding.sendButton.translationY = 0f
             }
         }
+
+        fun checkFieldsAndEnableButton() {
+            val isTextField1Filled = binding.username.text?.isNotBlank()
+            val isTextField2Filled = binding.message.text?.isNotBlank()
+
+            if (isTextField1Filled == true && isTextField2Filled == true) {
+                binding.sendButton.isEnabled = true
+                binding.sendButton.setTextColor(Color.BLACK)
+            } else {
+                binding.sendButton.isEnabled = false
+                val badYellowColor = ContextCompat.getColor(this, R.color.bad_yellow)
+                binding.sendButton.setTextColor(badYellowColor)
+            }
+        }
+
+        binding.username.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                checkFieldsAndEnableButton()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.message.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                checkFieldsAndEnableButton()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
