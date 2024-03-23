@@ -12,7 +12,7 @@ import ru.vladburchinskiy.lab5.model.Post
 
 class SimpleAdapter : RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
-    var posts: List<Post> = listOf()
+    private var posts: List<Post> = listOf()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(post: Post) {
