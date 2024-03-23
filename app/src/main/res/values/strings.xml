@@ -2,4 +2,7 @@
     <string name="app_name">lab5</string>
     <string name="title_home">Чат</string>
     <string name="title_quiz">Викторина</string>
+    <string name="user_image">user_image</string>
+    <string name="username">username</string>
+    <string name="message">message</string>
 </resources>

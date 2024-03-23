@@ -1,6 +1,5 @@
 package ru.vladburchinskiy.lab5.ui.quiz
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
