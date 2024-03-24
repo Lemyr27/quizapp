@@ -41,7 +41,6 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = posts.size
 
-    @SuppressLint("NotifyDataSetChanged")
     fun set(posts: List<Post>) {
         this.posts = listOf()
         this.posts = posts

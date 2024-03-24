@@ -99,7 +99,7 @@ class AddActivity : AppCompatActivity() {
         val db = MainDb.getDb(this)
         binding.sendButton.setOnClickListener {
 
-            val imageBytes: ByteArray? = if (binding.imageView.drawable != null) {
+            val imageBytes = if (binding.imageView.drawable != null) {
                 val bitmap = (binding.imageView.drawable as BitmapDrawable).bitmap
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
@@ -116,8 +116,8 @@ class AddActivity : AppCompatActivity() {
                 db.getDao().addPost(post)
             }.start()
 
-            finish()
-            onBackPressed()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
