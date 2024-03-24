@@ -36,13 +36,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        supportActionBar?.title = "Живой чат"
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu_main, menu)
-        return true
+//        supportActionBar?.title = "Живой чат"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

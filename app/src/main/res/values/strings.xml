@@ -12,4 +12,12 @@
     <string name="open_activity">Open Activity</string>
     <string name="image">image</string>
     <string name="send_message">Отправить сообщение</string>
+    <string name="quiz_info">Предлагаем вам сыграть в нашу юбилейную викторину, ответьте на десять вопросов о лисах и станьте победителем</string>
+    <string name="start_game">Начать игру</string>
+    <string name="next">Продолжить</string>
+    <string name="text_question">В каком городе лисицы живут на окраинах и иногда появляются в центре города?</string>
+    <string name="temp_cur">Вопрос 0/10</string>
+    <string name="temp_text_in_button">RadioButton</string>
+    <string name="your_choice">Ваш выбор</string>
+    <string name="true_choice">Правильный</string>
 </resources>

@@ -4,18 +4,18 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.MainScope
 import ru.vladburchinskiy.lab5.MainDb
 import ru.vladburchinskiy.lab5.R
 import ru.vladburchinskiy.lab5.adapter.SimpleAdapter
 import ru.vladburchinskiy.lab5.databinding.FragmentChatBinding
-import ru.vladburchinskiy.lab5.model.Post
 
 class ChatFragment : Fragment() {
 
@@ -29,16 +29,20 @@ class ChatFragment : Fragment() {
         SimpleAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Живой чат"
+//        (activity as? AppCompatActivity)?.supportActionBar?.title = "Живой чат"
         (activity as? AppCompatActivity)?.supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#222222")))
 
         _binding = FragmentChatBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         binding.recyclerView.apply {
             adapter = this@ChatFragment.adapter
@@ -54,7 +58,12 @@ class ChatFragment : Fragment() {
             adapter.set(it.reversed())
         }
 
-        return root
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {
