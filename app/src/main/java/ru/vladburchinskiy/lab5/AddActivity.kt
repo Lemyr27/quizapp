@@ -1,11 +1,11 @@
 package ru.vladburchinskiy.lab5
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,14 +14,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import ru.vladburchinskiy.lab5.databinding.AddActivityBinding
+import ru.vladburchinskiy.lab5.model.Post
+import java.io.ByteArrayOutputStream
 
 class AddActivity : AppCompatActivity() {
 
@@ -43,6 +40,9 @@ class AddActivity : AppCompatActivity() {
             val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST)
         }
+
+        binding.imageContainer.z = 1f
+        binding.sendButton.z = 10f
 
         title = "Ваше сообщение"
 
@@ -71,11 +71,13 @@ class AddActivity : AppCompatActivity() {
             if (isTextField1Filled == true && isTextField2Filled == true) {
                 binding.sendButton.isEnabled = true
                 binding.sendButton.setTextColor(Color.BLACK)
+                binding.sendButton.bringToFront()
             } else {
                 binding.sendButton.isEnabled = false
                 val badYellowColor = ContextCompat.getColor(this, R.color.bad_yellow)
                 binding.sendButton.setTextColor(badYellowColor)
             }
+            binding.sendButton.z = 10f
         }
 
         binding.username.addTextChangedListener(object : TextWatcher {
@@ -93,6 +95,30 @@ class AddActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+
+        val db = MainDb.getDb(this)
+        binding.sendButton.setOnClickListener {
+
+            val imageBytes: ByteArray? = if (binding.imageView.drawable != null) {
+                val bitmap = (binding.imageView.drawable as BitmapDrawable).bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                stream.toByteArray()
+            } else null
+
+            val post = Post(
+                name = binding.username.text.toString(),
+                message = binding.message.text.toString(),
+                image = imageBytes
+            )
+
+            Thread {
+                db.getDao().addPost(post)
+            }.start()
+
+            finish()
+            onBackPressed()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

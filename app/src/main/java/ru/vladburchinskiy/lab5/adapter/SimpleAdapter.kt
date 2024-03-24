@@ -1,6 +1,8 @@
 package ru.vladburchinskiy.lab5.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,9 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(post: Post) {
-            post.image?.let { itemView.findViewById<ImageView>(R.id.imageView).setImageResource(it) }
+            if (post.image != null) {
+                itemView.findViewById<ImageView>(R.id.imageView).setImageBitmap(post.image.toBitmap())
+            }
             itemView.findViewById<TextView>(R.id.nameTextView).text = post.name
             itemView.findViewById<TextView>(R.id.messageTextView).text = post.message
         }
@@ -42,5 +46,9 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
         this.posts = listOf()
         this.posts = posts
         notifyDataSetChanged()
+    }
+
+    fun ByteArray.toBitmap(): Bitmap {
+        return BitmapFactory.decodeByteArray(this, 0, this.size)
     }
 }

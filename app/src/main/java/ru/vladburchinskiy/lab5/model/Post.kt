@@ -1,8 +1,18 @@
 package ru.vladburchinskiy.lab5.model
 
+import android.net.Uri
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "post")
 data class Post(
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
+    @ColumnInfo(name = "name")
     val name: String,
+    @ColumnInfo(name = "message")
     val message: String,
-    val image: Int? = null
+    @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
+    val image: ByteArray?
 )

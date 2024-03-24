@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.MainScope
+import ru.vladburchinskiy.lab5.MainDb
 import ru.vladburchinskiy.lab5.R
 import ru.vladburchinskiy.lab5.adapter.SimpleAdapter
 import ru.vladburchinskiy.lab5.databinding.FragmentChatBinding
@@ -45,28 +48,11 @@ class ChatFragment : Fragment() {
                 false)
         }
 
-        val posts: List<Post> = listOf(
-            Post(
-                name="Иванов Иван Иванович",
-                message="Лисица — очень ловкое, сообразительное и хитрое животное со стройным и красивым, удлинённым телом и длинным пышным хвостом.",
-                image=R.drawable.lis1
-            ),
-            Post(
-                name="Петров Петр Петрович",
-                message="Длина тела — 50–90 см, хвост длинный и составляет больше половины тела — 35–60 см.",
-                image=R.drawable.lis2
-            ),
-            Post(
-                name="Васильев Василий Васильевич",
-                message="Лисы относятся к семейству псовых, что означает их родство с волками, шакалами и собаками. Они среднего размера, весом от двух до 24 килограммов, с острыми мордами, стройными фигурами и кустистыми хвостами."
-            ),
-            Post(
-                name="Курткин Николай Львович",
-                message="Как и управляемая ракета, лиса использует магнитное поле Земли в своих охотничьих целях. Другие животные, такие как птицы, акулы и черепахи, обладают этим «магнитным чувством», но лиса — первая, кто использует его для ловли добычи."
-            )
-        )
-
-        adapter.set(posts)
+        val context = binding.root.context
+        val db = MainDb.getDb(context)
+        db.getDao().getAllPosts().asLiveData().observe(viewLifecycleOwner) {
+            adapter.set(it.reversed())
+        }
 
         return root
     }
